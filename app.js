@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 // Import controllers
 var bebobCtrl = require('./controllers/bebop.ctrl');
-var 
+var api = require('./controllers/api');
 
 var app = express();
 
@@ -25,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Customize setup  and settings
 app.set("root", __dirname);
+
+app.use(api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
