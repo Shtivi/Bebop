@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var server = require('http').createServer(app);  
+var io = require('socket.io')(server);
 
 // Import controllers
 var bebobCtrl = require('./controllers/bebop.ctrl');
@@ -28,6 +30,14 @@ app.set("root", __dirname);
 
 app.use(api);
 
+io.on("connection", function(client) {
+  console.log("socket connected");
+  client.on("blah", (data) => { 
+    console.log(data); 
+    client.emit('msg', 'hello from server')
+  })
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -45,5 +55,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+server.listen(80);
 
 module.exports = app;
