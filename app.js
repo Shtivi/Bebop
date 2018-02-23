@@ -7,11 +7,16 @@ var bodyParser = require('body-parser');
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 
-// Import controllers
-var bebobCtrl = require('./controllers/bebop.ctrl');
-var api = require('./controllers/api');
-
 var app = express();
+
+// Customize setup  and settings
+app.set("root", __dirname);
+app.set("debug_mode", false);
+
+// Import controllers
+var api = require('./controllers/api');
+var socketsCtrl = require('./controllers/sockets.ctrl')(io);
+var bebobCtrl = require('./controllers/bebop.ctrl')(app.get("debug_mode"), socketsCtrl);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,18 +30,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Customize setup  and settings
-app.set("root", __dirname);
-
-app.use(api);
-
-io.on("connection", function(client) {
-  console.log("socket connected");
-  client.on("blah", (data) => { 
-    console.log(data); 
-    client.emit('msg', 'hello from server')
-  })
-})
+app.use(api({ 
+  io: io 
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,23 +1,37 @@
-app.service("droneService", function() {
+app.service("droneService", function($http) {
     // Data members
     var socket = null;
+    var eventListeners = {
+        stats: [], 
+        actions: []
+    };
 
     /** API **/
     
     // Initialization
     this.connect = function(serverUrl) {
-        socket = io.connect('http://localhost:80');
+        socket = io.connect(serverUrl);
 
-        socket.on('connect', (data) => {
-            console.log(data);
-            socket.emit('blah', 'hello from client');
-        })
+        socket.on("statsEvent", (data) => {
+            eventListeners.stats.forEach((listener) => listener(data));
+        });
 
-        socket.on('msg', (msg) => console.log(msg));
+        socket.on("actionEvent", (data) => {
+            eventListeners.actions.forEach((listener) => listener(data));
+        });
     }
 
     // Commands 
-
+    this.getStats = () => {
+        return $http.get('/drone/stats');
+    }
 
     // Events registeration
+    this.listenStatsEvents = (listener) => {
+        eventListeners.stats.push(listener);
+    };
+
+    this.listenActionEvents = () => {
+        eventListeners.actions.push(listener);
+    }
 });

@@ -18,12 +18,13 @@
         <!-- Javascripts -->
         <script src="/javascripts/app.js"></script>
         <script src="/javascripts/services/drone.srv.js"></script>
+        <script src="/javascripts/stats.ctrl.js"></script>
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
 
     <body>
-        <md-button class="md-raised md-warn">Warn</md-button>
+        <div ng-controller="statsCtrl">{{stats}}</div>
     </body>
 </html>

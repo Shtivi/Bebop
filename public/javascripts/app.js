@@ -1,6 +1,7 @@
 var app = angular.module("DroneControl", ['ngMaterial']);
 
-app.constant("serverUrl", window.location.host);
+// app.constant("serverUrl", window.location.host);
+app.constant("serverUrl", 'http://localhost:80');
 
 app.config(($mdThemingProvider) => {
     // Theme
