@@ -132,12 +132,36 @@ module.exports.land = () => {
     drone.land();
 }
 
-module.exports.validateCommand = (command) => {
-    var commands = ['forward', 'backward', 'left', 'right', 'stop', 'takeOff', 'land'];
+// Commands mapping & settings
+var commands = [
+    { command: 'forward', cancel: 'stopForward' },
+    { command: 'backward', cancel: 'stopBackward' },
+    { command: 'right', cancel: 'stopRight' },
+    { command: 'left', cancel: 'stopLeft' },
+    { command: 'up', cancel: 'stopUp' },
+    { command: 'down', cancel: 'stopDown' },
+    { command: 'rotateRight', cancel: 'stopRotatingRight' },
+    { command: 'rotateLeft', cancel: 'stopRotatingLeft' }
+]
 
+module.exports.validateCommand = (command) => {
     if (commands.findIndex((cmd) => cmd == command) == -1) {
         return false;
     } else {
         return true;
     }
+}
+
+module.exports.getAllValidCommands = () => {
+    var allCommands = [];
+    commands.forEach((cmd) => {
+        allCommands.push(cmd.command);
+        allCommands.push(cmd.cancel);
+    })
+
+    return allCommands;
+}
+
+module.exports.getCommands = () => {
+
 }

@@ -7,6 +7,10 @@ router.get('/stats', (req, res, next) => {
     res.send(bebop.getCurrentStats());
 })
 
+router.get('/validCommands', (req, res, next) => {
+    res.send(bebop.getAllValidCommands());
+})
+
 router.post('/commands', (req, res, next) => {
     if (bebop.validateCommand(req.body.command)) {
          //bebop[req.body.command]();
