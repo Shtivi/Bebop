@@ -9,7 +9,7 @@ app.controller("navMapCtrl", function($scope, mapService, NgMap, googleMapStyles
             var marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
-                icon: 'http://localhost:3000/images/icons/drone2.png'
+                icon: 'http://localhost:3000/images/icons/drone.png'
             })
         }, (err) => console.error(err));
     })
