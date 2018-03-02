@@ -25,8 +25,34 @@ module.exports = (debugMode, socketsController) => {
 
             drone.WifiSettings.outdoorSetting(0);
 
-            // drone.Piloting.takeOff();
-            // setTimeout(() => drone.Piloting.landing(), 5000);
+            // drone.takeOff(() => {
+            //     console.log("taken off");
+            //     drone.up(20);
+            //     setTimeout(() => drone.stop(), 2000);
+            //     drone.land(() => console.log("landed"));
+            // })
+
+            //drone.takeOff();
+            // setTimeout(() => drone.up(50), 3000);
+            // setTimeout(function() {
+            //     drone.stop();
+            // }, 3000 + 1500);
+            // setTimeout(function() {
+            //     drone.down(80);
+            // }, 3000 + 1500 + 2000);
+            // setTimeout(function() {
+            //     drone.land();
+            // }, 3000 + 1500 + 2000 + 1500);
+            // setTimeout(function() {
+            //     drone.clockwise(70);
+            //     drone.right(25);
+            // }, 3000);
+            // setTimeout(function() {
+            //     drone.stop();
+            // }, 7000);
+            // setTimeout(function() {
+            //     drone.land();
+            // }, 8000);
 
             drone.on("PositionChanged", (data) => {
                 currentStats["gps-position"] = data;
@@ -35,8 +61,9 @@ module.exports = (debugMode, socketsController) => {
                 })
             });
 
-            drone.on("battery", (data) => {
+            drone.on("BatteryStateChanged", (data) => {
                 currentStats["battery"] = data.precent;
+                console.log(data);
                 statsEvent({
                     "battery": data.precent    
                 });
@@ -75,4 +102,42 @@ module.exports.listenActionEvents = (listener) => {
 
 module.exports.getCurrentStats = () => {
     return currentStats;
+}
+
+module.exports.forward = () => {
+    drone.forward(15);
+}
+
+module.exports.backward = () => {
+    drone.backward(15);
+}
+
+module.exports.right = () => {
+    drone.right(15);
+}
+
+module.exports.left = () => {
+    drone.left(15);
+}
+
+module.exports.stop = () => {
+    drone.stop();
+}
+
+module.exports.takeOff = () => {
+    drone.takeOff();
+}
+
+module.exports.land = () => {
+    drone.land();
+}
+
+module.exports.validateCommand = (command) => {
+    var commands = ['forward', 'backward', 'left', 'right', 'stop', 'takeOff', 'land'];
+
+    if (commands.findIndex((cmd) => cmd == command) == -1) {
+        return false;
+    } else {
+        return true;
+    }
 }

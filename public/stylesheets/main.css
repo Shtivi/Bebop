@@ -1,3 +1,39 @@
 body {
-    background-image: url("/images/preview.jpg")
+    font-family: 'Calibri'    
+}
+
+i.fa {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+#live {
+    background-image: url("/images/preview.jpg");
+    width: 100%;
+    height: 100%;
+}
+
+#control-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+#stats {
+    background: #000;
+    color: #fff;
+    padding: 4px;
+    opacity: 0.75;
+    font-size: 14px;
+}
+
+#stats i.fa {
+    font-size: 1.75em;
+}
+
+#nav-map {
+    height: 33%!important;
+    /*width: 30%!important;*/
 }

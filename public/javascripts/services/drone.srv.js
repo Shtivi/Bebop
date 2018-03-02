@@ -1,4 +1,4 @@
-app.service("droneService", function($http) {
+app.service("droneService", function($http, $q) {
     // Data members
     var socket = null;
     var eventListeners = {
@@ -21,17 +21,19 @@ app.service("droneService", function($http) {
         });
     }
 
-    // Commands 
     this.getStats = () => {
         return $http.get('/drone/stats');
     }
 
-    // Events registeration
     this.listenStatsEvents = (listener) => {
         eventListeners.stats.push(listener);
     };
 
     this.listenActionEvents = () => {
         eventListeners.actions.push(listener);
+    }
+
+    this.sendCommand = (commandName) => {
+        return $http.post('/drone/commands', {command: commandName});
     }
 });

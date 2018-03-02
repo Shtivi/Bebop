@@ -11,7 +11,7 @@ var app = express();
 
 // Customize setup  and settings
 app.set("root", __dirname);
-app.set("debug_mode", false);
+app.set("debug_mode", true);
 
 // Import controllers
 var api = require('./controllers/api');

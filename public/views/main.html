@@ -8,9 +8,12 @@
         <script src="/libs/angular/angular-aria.min.js"></script>
         <script src="/libs/angular/angular-messages.js"></script>
         <script src="/libs/angular/angular-sanitize.js"></script>
+        <script src="/libs/angular/ng-map.js"></script>
         <script src="/libs/jquery/jquery-3.2.1.min.js"></script>
         <script src="/libs/angular-material/angular-material.js"></script>
         <script src="/libs/socket.io/socket.io.js"></script>
+        <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBznsY9f_4ACNijfJdyz-qKfit7jgrwBgU&callback=initMap"></script>-->
+        <script src="http://maps.google.com/maps/api/js?key=AIzaSyBznsY9f_4ACNijfJdyz-qKfit7jgrwBgU"></script>
 
         <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="/libs/angular-material/angular-material.css">
@@ -18,13 +21,50 @@
         <!-- Javascripts -->
         <script src="/javascripts/app.js"></script>
         <script src="/javascripts/services/drone.srv.js"></script>
+        <script src="/javascripts/services/map.srv.js"></script>
+        <script src="/javascripts/services/map-styles.srv.js"></script>
+        <script src="/javascripts/droneControl.ctrl.js"></script>
         <script src="/javascripts/stats.ctrl.js"></script>
+        <script src="/javascripts/nav-map.ctrl.js"></script>
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
 
-    <body>
-        <div ng-controller="statsCtrl">{{stats}}</div>
+    <body ng-controller="droneControl">
+        <div id="live"></div>
+        <div id="control-panel" layout="column">
+            <!-- Header & Stats -->
+            <div layout="row" id="stats" layout-align="end" ng-controller="statsCtrl" flex="5">
+                <div flex="5">
+                    <i class="fa fa-wifi" md-colors="{color: '{{wifiColor}}'}"></i>
+                </div>
+                <div flex="5">
+                    <i class="fa fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <div layout="row" flex="95">
+                <!-- Left side controls -->
+                <div layout="column" flex="5">
+                    <md-button class="md-fab md-mini" md-theme="default" md-colors="{'background': 'grey-100'}">
+                        <i class="fa fa-cog"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini">
+                        <i class="fa fa-cog"></i>
+                    </md-button>
+                </div>
+
+                <div layout="column" flex="95">
+                    <div flex="65"></div>
+                    <!-- Navigation Map -->
+                    <div flex="35" id="navigation-map" ng-controller="navMapCtrl" layout-align="end end" layout="row">
+                        <div flex="30" flex-offset="70">
+                            <ng-map center="{{userPosition}}" zoom="3"></ng-map>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

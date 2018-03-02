@@ -1,4 +1,4 @@
-var app = angular.module("DroneControl", ['ngMaterial']);
+var app = angular.module("DroneControl", ['ngMaterial', 'ngMap']);
 
 // app.constant("serverUrl", window.location.host);
 app.constant("serverUrl", 'http://localhost:80');
