@@ -22,7 +22,7 @@ app.config(($mdThemingProvider) => {
     $mdThemingProvider.setDefaultTheme("droneControl");
 })
 
-app.run(function(serverUrl, droneService) {
-    // Initialize the drone control service
-    droneService.connect(serverUrl);
-})
+// app.run(function(serverUrl, droneService) {
+//     // Initialize the drone control service
+//     droneService.connect(serverUrl);
+// })

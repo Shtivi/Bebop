@@ -16,7 +16,7 @@ app.set("debug_mode", true);
 // Import controllers
 var api = require('./controllers/api');
 var socketsCtrl = require('./controllers/sockets.ctrl')(io);
-var bebobCtrl = require('./controllers/bebop.ctrl')(app.get("debug_mode"), socketsCtrl);
+var bebobCtrl = require('./controllers/drone/bebop.ctrl')(app.get("debug_mode"), socketsCtrl);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

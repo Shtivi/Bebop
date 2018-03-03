@@ -163,5 +163,5 @@ module.exports.getAllValidCommands = () => {
 }
 
 module.exports.getCommands = () => {
-
+    return commands;
 }

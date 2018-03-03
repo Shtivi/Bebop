@@ -1,0 +1,12 @@
+{
+    "keyBindings": {
+        "rotateRight": "37",
+        "up": "38",
+        "rotateLeft": "39",
+        "down": "40",
+        "forward": "87",
+        "left": "65",
+        "backward": "83",
+        "right": "68"
+    }
+}

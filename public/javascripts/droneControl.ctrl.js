@@ -1,33 +1,30 @@
-app.controller("droneControl", function($scope, droneService) {
-    commands = {
-        "37": "rotateRight",
-        "38": "up",
-        "39": "rotateLeft",
-        "40": "down",
-        "87": "forward",
-        "65": "left",
-        "83": "backward",
-        "68": "right"
-    };
+app.controller("droneControl", function($scope, droneService, serverUrl, $q) {
+    $q.all([droneService.connect(serverUrl), droneService.settings()]).then((res) => {
+        // Command started
+        $(document).on("keydown", (e) => {
+            // if (commands[e.keyCode]) {
+            //     droneService.sendCommand(commands[e.keyCode]).then((res) => {
 
-    $(document).on("keydown", (e) => {
-        if (commands[e.keyCode]) {
-            console.log(commands[e.keyCode]);
-            droneService.sendCommand(commands[e.keyCode]).then((res) => {
+            //     }, (err) => {
+            //         //alert("command error");
+            //         console.log(err);
+            //     })
+            // }
+        });
 
-            }, (err) => {
-                //alert("command error");
-                console.error(err);
-            })
-        }
+        // Command stopped
+        $(document).on("keyup", (e) => {
+            // droneService.sendCommand('stop').then((res) => {
+
+            // }, (err) => {
+            //     //alert("command error");
+            //     console.log(err);
+            // })
+        });
+
+        $scope.settings = res[1].data;
+    }, (err) => {
+        alert("fatal connection error");
+        console.log("connection error");
     });
-
-    $(document).on("keyup", (e) => {
-        droneService.sendCommand('stop').then((res) => {
-
-        }, (err) => {
-            //alert("command error");
-            console.error(err);
-        })
-    })
 })
