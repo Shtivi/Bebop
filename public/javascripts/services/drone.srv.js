@@ -47,4 +47,8 @@ app.service("droneService", function($http, $q) {
     this.settings = () => {
         return $http.get('/drone/settings');
     }
+
+    this.allowedCommands = () => {
+        return $http.get("/drone/commands");
+    }
 });
